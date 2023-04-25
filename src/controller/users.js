@@ -14,4 +14,4 @@ const createUser = (req, res) => {
 module.exports = {
     getAllUsers, 
     createUser
-}
+} //if exports using -> '{}' in order to import this method need to call the method name  like userController(->imported variable).getAllUsers(->method name)
