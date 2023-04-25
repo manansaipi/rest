@@ -5,7 +5,7 @@ const getAllUsers = (req, res) => {
     })
 }
 
-const createUsers = (req, res) => {
+const createUser = (req, res) => {
     res.json({
         message: 'CREATE new user success'
     })
@@ -13,5 +13,5 @@ const createUsers = (req, res) => {
 
 module.exports = {
     getAllUsers, 
-    createUsers
+    createUser
 }
