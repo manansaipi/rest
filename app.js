@@ -9,7 +9,7 @@ const foodsRoutes = require('./src/routes/foods.js')
 const app = express()
 
 const hostname = 'localhost'
-const port = 3000
+const port = process.env.port || 4000
 
 
 // app.use((req, res, next) => { //this is middleware, when there is one path request to the api, the program will go here first and will do check whatever we want to check, and will continue if success using next() method 
