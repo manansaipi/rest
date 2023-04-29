@@ -10,7 +10,7 @@ router.get('/', usersController.getAllUsers) //path "/" will refer to /users bec
 //CREATE user - POST
 router.post('/', usersController.createUser) 
 
-//UPDATE user - PTACH -> update several data but won't change other data
+//UPDATE user - PATCH -> update several data but won't change other data
 router.patch('/:id', usersController.updateUser) 
 //UPDATE user - put -> update several data and will change other data, if the data is empty will asign empty
 

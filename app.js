@@ -25,6 +25,7 @@ app.get("/", (req, res) => { //default/empty route
 })
 
 app.use(express.json())//this middle ware allow JSON req.body 
+app.use(express.static('public'))//this will allow access static file in public folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension 
 
 app.use("/users", usersRoutes) //Grouping path users in users.js file
 app.use("/foods", foodsRoutes) //grouping path food in foods.js file

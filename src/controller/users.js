@@ -18,9 +18,18 @@ const getAllUsers = async ( req, res) => {
 const createUser = async (req, res) => {
     // console.log(req.body)
     const {body} = req
+
+    if(!body.name || !body.username || !body.email ){
+        return res.status(400).json({
+            message: "Invalid input value",
+            data: null
+        })
+    }
+
+
     try {
         await UsersModel.createNewUser(body)
-        res.json({
+        res.status(201).json({
             message: 'CREATE new user success', 
             data: body
         })
