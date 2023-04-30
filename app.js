@@ -2,9 +2,11 @@ require('dotenv').config()
 
 const express = require('express')
 
-const middlewareLogReq = require('./src/middleware/logs')
 const usersRoutes = require('./src/routes/users.js')
 const foodsRoutes = require('./src/routes/foods.js')
+
+const middlewareLogReq = require('./src/middleware/logs')
+const upload = require('./src/middleware/multer')
 
 const app = express()
 
@@ -25,10 +27,22 @@ app.get("/", (req, res) => { //default/empty route
 })
 
 app.use(express.json())//this middle ware allow JSON req.body 
-app.use(express.static('public'))//this will allow access static file in public folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension 
+app.use(express.static('public/images'))//this will allow access static file in public folder inside images folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension 
 
 app.use("/users", usersRoutes) //Grouping path users in users.js file
 app.use("/foods", foodsRoutes) //grouping path food in foods.js file
+app.post('/upload',upload.single('photo'),(req, res) => {
+    res.json({
+        message: 'Upload Successfully'
+    })
+})
+
+app.use((err, req, res, next) => { //err handling
+    res.json({
+        message: err.message
+    })
+
+})
 
 
 app.use("/", (req, res) => { //else
