@@ -1,9 +1,12 @@
 require('dotenv').config()
 
 const express = require('express')
+const { Storage } = require('@google-cloud/storage');
+const fs = require('fs')
 
 const usersRoutes = require('./src/routes/users.js')
 const foodsRoutes = require('./src/routes/foods.js')
+const uploadRoutes = require('./src/routes/upload.js')
 
 const middlewareLogReq = require('./src/middleware/logs')
 const upload = require('./src/middleware/multer')
@@ -22,20 +25,14 @@ const port = process.env.port || 4000
 // app.use(middlewareLogReq.logRequest) //same like middleware above, but this one is from middleware folder in logs.js file
     
 
-app.get("/", (req, res) => { //default/empty route 
-    res.send("HOME")
-})
 
 app.use(express.json())//this middle ware allow JSON req.body 
 app.use(express.static('public/images'))//this will allow access static file in public folder inside images folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension 
 
 app.use("/users", usersRoutes) //Grouping path users in users.js file
 app.use("/foods", foodsRoutes) //grouping path food in foods.js file
-app.post('/upload',upload.single('photo'),(req, res) => {
-    res.json({
-        message: 'Upload Successfully'
-    })
-})
+
+app.use('/upload',upload.single('photo'), uploadRoutes)
 
 app.use((err, req, res, next) => { //err handling
     res.json({
