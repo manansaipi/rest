@@ -12,16 +12,16 @@ const bucketName = 'bucket_express3'
 
 const bucket = storage.bucket(bucketName); //my bucket name in the cloud
 
-
-
+// CRUD //
+//C
 const uploadPhoto = async (req, res, next) => {
     const file = req.file;
-    const destination = bucket.file(file.filename);// path to save in the bucket and the file name
+    const destination = bucket.file(`images/profile/${file.filename}`);// path to save in the bucket and the file name
 
     const filePath = `./public/images/${file.filename}`;
 
     // Get the public URL
-    const publicUrl = `https://storage.googleapis.com/${bucketName}/${file.filename}`;
+    const publicUrl = `https://storage.googleapis.com/${bucketName}/images/profile/${file.filename}`; // can store this URL to the cloudSQL
 
     try {
     const options = {
@@ -30,6 +30,7 @@ const uploadPhoto = async (req, res, next) => {
       },
       predefinedAcl: 'publicRead', // set public access control
     };
+    
     
     // fs.createReadStream(`./public/images/${file.filename}`)
     // .pipe(destination.createWriteStream(options))
@@ -57,8 +58,8 @@ const uploadPhoto = async (req, res, next) => {
       url: publicUrl
     
     });
- 
 
+ 
     } catch (error) {
         res.json({
             message: error
@@ -66,6 +67,17 @@ const uploadPhoto = async (req, res, next) => {
     }
          
 }
+
+//R
+//to read, first store the public url to databse and query that url to the client if needed
+
+//U
+//to update, simply upload a new file to the same bucket, in the same folder and same filename and it will overwrite the original file with the new version.
+
+//D
+//to delete just simply use this methof = destination.delete(). destination is => const destination = bucket.file(`images/profile/${file.filename}`);// path to save in the bucket and the file name
+
+//If you want to keep a backup of your files, you may want to consider using object versioning or object lifecycle management in Google Cloud Storage to automatically move files to cheaper storage or delete them after a certain period of time.
 
 module.exports = {
     uploadPhoto

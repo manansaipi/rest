@@ -4,12 +4,12 @@ const express = require('express')
 const { Storage } = require('@google-cloud/storage');
 const fs = require('fs')
 
-const usersRoutes = require('./src/routes/users.js')
-const foodsRoutes = require('./src/routes/foods.js')
-const uploadRoutes = require('./src/routes/upload.js')
+const usersRoutes = require('./routes/users.js')
+const foodsRoutes = require('./routes/foods.js')
+const uploadRoutes = require('./routes/upload.js')
 
-const middlewareLogReq = require('./src/middleware/logs')
-const upload = require('./src/middleware/multer')
+const middlewareLogReq = require('./middleware/logs.js')
+const upload = require('./middleware/multer.js')
 
 const app = express()
 
