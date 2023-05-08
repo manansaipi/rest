@@ -14,7 +14,7 @@ const upload = require('./middleware/multer.js')
 
 const app = express()
 
-const hostname = 'localhost'
+const hostname = 'localhost' //ipv4 -> 192.168.1.93 be able run the server on the same  public wifi
 const port = process.env.port || 4000
 
 
@@ -26,7 +26,18 @@ const port = process.env.port || 4000
 
 // app.use(middlewareLogReq.logRequest) //same like middleware above, but this one is from middleware folder in logs.js file
     
-
+app.use('/', (req, res) => {
+    try {
+        res.json({
+        message: "heyo"
+    })
+    } catch (error) {
+        res.json({
+            message: error
+        })
+    }
+    
+})
 
 app.use(express.json())//this middle ware allow JSON req.body 
 app.use(express.static('public/images'))//this will allow access static file in public folder inside images folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension 
@@ -37,6 +48,11 @@ app.use("/foods", foodsRoutes) //grouping path food in foods.js file
 app.use('/upload',upload.single('photo'), uploadRoutes)
 
 app.use('/message', messageRoutes)
+app.get('/test', (req,res) => {
+    res.json({
+        message: "heyo"
+    })
+})
 
 app.use((err, req, res, next) => { //err handling
     res.json({
@@ -44,13 +60,10 @@ app.use((err, req, res, next) => { //err handling
     })
 
 })
-
-
 app.use("/", (req, res) => { //else
     res.sendStatus(404)
 }) 
 
-app.listen(port, hostname, () => {
+app.listen(port, () => { //(port, hostname() => {make the server runing on spesific hostname
     console.log(`Server running at http://${hostname}:${port}`)
 })
-

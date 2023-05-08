@@ -8,4 +8,6 @@ router.get('/', messageController.getMessage)
 
 router.post('/', messageController.pushMessage)
 
+router.patch('/:id', messageController.updateMessage)
+
 module.exports = router
