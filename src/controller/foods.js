@@ -1,12 +1,12 @@
 const getAllFoods = (req, res)=>{
     res.json({
-        message: "GET all foods"
+        message: 'GET all foods'
     })
 }
 
 const createFood = (req, res)=>{
     res.json({
-        message: "CREATE new food"
+        message: 'CREATE new food'
     })
 }
 

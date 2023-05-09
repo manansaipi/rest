@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
 
     if(!body.name || !body.username || !body.email ){
         return res.status(400).json({
-            message: "Invalid input value",
+            message: 'Invalid input value',
             data: null
         })
     }
@@ -49,13 +49,13 @@ const updateUser = async (req, res) => {
     // console.log(req.params) params -> parameter
     try {
         await UsersModel.updateUser(body, id)
-       res.json({
-        message : "UPDATE user success",
-        data: {
-            id: id,
-            ...body
-        }
-    }) 
+        res.json({
+            message : 'UPDATE user success',
+            data: {
+                id: id,
+                ...body
+            }
+        }) 
     } catch (error) {
         res.status(500).json({
             message: 'Server Error',
@@ -73,17 +73,17 @@ const deleteUser =  async (req, res) => {
     try {
         const [data] = await UsersModel.getUser(id)
         console.log(data)
-        if(data == ""){
+        if(data == ''){
             res.status(404).json({
-            message : "id not found"
+                message : 'id not found'
             })
-        } else{
+        } else {
             await UsersModel.deleteUser(id)
             res.json({
-            message : "DELETE user success",
-            data: {
-                id: id,
-                data: body
+                message : 'DELETE user success',
+                data: {
+                    id: id,
+                    data: body
                 }
             })
         }

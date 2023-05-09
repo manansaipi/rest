@@ -1,6 +1,6 @@
 const logRequest = (req, res, next) => { //we can use multiple middleware and will run in sequence
-    console.log("second check")
-    next();//->if success continue to path request. 
+    console.log('second check')
+    next()//->if success continue to path request. 
 }
 
 module.exports = {
