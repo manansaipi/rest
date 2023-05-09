@@ -1,10 +1,10 @@
-const getAllFoods = (req, res)=>{
+const getAllFoods = (req, res) => { 
     res.json({
         message: 'GET all foods'
     })
 }
 
-const createFood = (req, res)=>{
+const createFood = (req, res) => {
     res.json({
         message: 'CREATE new food'
     })

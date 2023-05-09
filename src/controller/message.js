@@ -1,6 +1,4 @@
-
 const firebase = require('firebase-admin')
-
 
 // const serviceAccount = require("../credentials/firebase.json") //credentials-key
 
@@ -59,8 +57,6 @@ module.exports = {
     pushMessage,
     updateMessage
 }
-
-
 
 
 
