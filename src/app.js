@@ -2,7 +2,6 @@ require('dotenv').config()
 
 //core modules
 const express = require('express')
-const fs = require('fs')
 
 const usersRoutes = require('./routes/users.js')
 const foodsRoutes = require('./routes/foods.js')
@@ -54,7 +53,7 @@ app.get('/test', (req,res) => {
     })
 })
 
-app.use((err, req, res, next) => { //err handling
+app.use((err, res) => { //err handling
     res.json({
         message: err.message
     })

@@ -45,7 +45,7 @@ const updateMessage = (req, res ) => {
     const messageId = req.params.id;
     const updatedMessage = req.body;
     try {
-        const messageRef = admin.database().ref(`/messages/${messageId}`);
+        const messageRef = firebase.database().ref(`/messages/${messageId}`);
         messageRef.update(updatedMessage)
 
         res.send('Message updated successfully');
