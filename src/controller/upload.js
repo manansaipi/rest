@@ -5,7 +5,7 @@ const { Storage } = require('@google-cloud/storage')
 //credentials-key
 const storage = new Storage({
     projectId: 'qwiklabs-gcp-00-d947baf6112d',
-    keyFilename: '../credentials/cloud-storage.json', 
+    keyFilename: '../../credentials/cloud-storage.json', 
 })
 
 const bucketName = 'bucket_express3'
