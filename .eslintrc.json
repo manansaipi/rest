@@ -13,23 +13,24 @@
     "rules": {
         "indent": [
             "error",
-            4
+            4//->default 2
         ],
-        "linebreak-style": 0,
+        "linebreak-style": 0, //->0
         "semi": [
             "error",
             "never"
         ],
-        "max-len": [
+        "max-len": [ 
             "error",
             {
-                "code": 300
+                "code": 300 // ->default 100
             }
         ],
-        "spaced-comment": "off",
-        "no-trailing-spaces": "off",
-        "no-console": "off",
-        "comma-dangle": "off",
-        "no-multiple-empty-lines": "off"
+        "spaced-comment": "off", //->on/off
+        "no-trailing-spaces": "off",//->on/off
+        "no-console": "off", //->off
+        "comma-dangle": "off", //->off
+        "no-multiple-empty-lines": "off", //->on
+        "eol-last": 0 //->0
     }
 }

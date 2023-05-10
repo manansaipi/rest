@@ -8,7 +8,7 @@ const firebase = require('firebase-admin')
 // })
 //CRUD
 //R
-const getMessage = (req, res ) => {
+const getMessage = (req, res) => {
     // read messages from database
     firebase.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
         .then((snapshot) => {
@@ -25,7 +25,7 @@ const getMessage = (req, res ) => {
         })
 }
 //C
-const pushMessage = (req, res ) => {
+const pushMessage = (req, res) => {
     const { message } = req.body
     try {
         // write message to database
@@ -38,7 +38,7 @@ const pushMessage = (req, res ) => {
         res.status(500).send('Error sending message')
     }
 }
-const updateMessage = (req, res ) => {
+const updateMessage = (req, res) => {
     const messageId = req.params.id
     const updatedMessage = req.body
     try {

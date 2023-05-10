@@ -13,8 +13,6 @@ const upload = require('./middleware/multer')
 const app = express()
 const hostname = 'localhost' // ipv4 -> 192.168.1.93 be able run the server on the same  public wifi
 
-const port = process.env.port || 4000
-
 // app.use((req, res, next) => { // this is middleware, when there is one path request to the api, the program will go here first and will do check whatever we want to check, and will continue if success using next() method
 //     console.log('check')
 //     next() //->if success continue to path request.
@@ -22,7 +20,7 @@ const port = process.env.port || 4000
 
 // app.use(middlewareLogReq.logRequest) //same like middleware above, but this one is from middleware folder in logs.js file
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     try {
         res.json({
             message: 'heyo',
@@ -58,6 +56,7 @@ app.use('/', (req, res) => { //else
     res.sendStatus(404)
 })
 
+const port = process.env.port || 8080
 app.listen(port, () => { // (port, hostname() => {make the server runing on spesific hostname
     console.log(`Server running at http://${hostname}:${port}`)
 })

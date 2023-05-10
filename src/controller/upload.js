@@ -15,7 +15,7 @@ const bucket = storage.bucket(bucketName) //my bucket name in the cloud
 // CRUD //
 //C
 const uploadPhoto = async (req, res) => {
-    const file = req.file
+    const { file } = req.file
     const destination = bucket.file(`images/profile/${file.filename}`)// path to save in the bucket and the file name
 
     const filePath = `./public/images/${file.filename}`
@@ -76,4 +76,5 @@ const uploadPhoto = async (req, res) => {
 
 module.exports = {
     uploadPhoto
+
 }

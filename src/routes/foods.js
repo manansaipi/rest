@@ -1,6 +1,6 @@
 const express = require('express')
 
-const foodsController = require('../controller/foods.js')
+const foodsController = require('../controller/foods')
 
 const router = express.Router()
 
