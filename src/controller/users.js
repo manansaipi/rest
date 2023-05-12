@@ -1,4 +1,5 @@
 const UsersModel = require('../models/users')
+const firebase = require('../config/firbase')
 
 const getAllUsers = async (req, res) => {
     try {
@@ -19,7 +20,7 @@ const createUser = async (req, res) => {
     // console.log(req.body)
     const { body } = req
 
-    if (!body.name || !body.username || !body.email) {
+    if (!body.full_name || !body.email) {
         return res.status(400).json({
             message: 'Invalid input value',
             data: null
@@ -90,9 +91,47 @@ const deleteUser = async (req, res) => {
         })    
     }
 }
+
+const register = async (req, res) => {
+    const { email } = req.email
+    const { password } = req.password
+
+    try {
+        // Create user account in Firebase Authentication
+        const userRecord = await firebase.auth().createUser({
+            email,
+            password,
+        })
+        res.json({ 
+            message: 'success regist',
+            user: userRecord.toJSON() 
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('Failed to create user')
+    }
+}
+
+const login = async (req, res) => {
+    const { email } = req.email
+    const { password } = req.password
+
+    try {
+        const userRecord = await firebase.auth().signInWithEmailAndPassword(email, password)
+        res.json({
+            message: 'success login',
+            user: userRecord.toJSON() 
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('Failed to login')
+    }
+}
 module.exports = {
     getAllUsers, 
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    register,
+    login
 } //if exports using -> '{}' in order to import this method need to call the method name  like userController(->imported variable).getAllUsers(->method name)

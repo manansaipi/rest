@@ -20,18 +20,6 @@ const hostname = 'localhost' // ipv4 -> 192.168.1.93 be able run the server on t
 
 // app.use(middlewareLogReq.logRequest) //same like middleware above, but this one is from middleware folder in logs.js file
 
-app.get('/', (req, res) => {
-    try {
-        res.json({
-            message: 'heyo',
-        })
-    } catch (error) {
-        res.json({
-            message: error,
-        })
-    }
-})
-
 app.use(express.json())//this middle ware allow JSON req.body
 app.use(express.static('public/images'))//this will allow access static file in public folder inside images folder and to get access into the file need to make a request to = http://localhost:4000/filename.extension
 

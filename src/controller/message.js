@@ -1,11 +1,5 @@
-const firebase = require('firebase-admin')
+const admin = require('../config/firbase')
 
-const serviceAccount = require('../../credentials/firebase.json') //credentials-key
-
-firebase.initializeApp({ //init
-    credential: firebase.credential.cert(serviceAccount), //credentials
-    databaseURL: 'https://qwiklabs-gcp-00-7d3289e966da-default-rtdb.asia-southeast1.firebasedatabase.app/'
-})
 //CRUD
 
 //C
@@ -13,7 +7,7 @@ const pushMessage = (req, res) => {
     const { message } = req.body
     try {
         // write message to database into "messages2" collection
-        const newMessageRef = firebase.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
+        const newMessageRef = admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
             message,
             timestamp: new Date().getTime()
         })
@@ -32,35 +26,35 @@ const pushMessage = (req, res) => {
 }
 
 //R
-const getMessage = (req, res) => {
-    // get a database reference to the 'messages2' collection
-    firebase.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
-        .then((snapshot) => {
-            const messages = []
-
-            // loop through all the messages in the snapshot
-            snapshot.forEach((childSnapshot) => {
-                const messageId = childSnapshot.key
-                const message = childSnapshot.val()
-                
-                // add the message and its ID to the array
-                messages.push({
-                    id: messageId,
-                    message
-                })
+const getMessage = async (req, res) => {
+    try {
+        // get a database refer to "message2" collection 
+        const snapshot = await admin.database().ref('messages2').once('value')
+        const messages = []
+        
+        // looping every message inside snapshot var
+        snapshot.forEach((childSnapshot) => {
+            const messageId = childSnapshot.key // get the message id
+            const message = childSnapshot.val() // get message
+            
+            messages.push({
+                id: messageId,
+                message
             })
-            res.status(200).json({
-                message: 'Succes to get all message',
-                data: {
-                    messages
-                }
-            })
-        })                                               
-        .catch((error) => {
-            console.error('Error retrieving messages:', error)
-            res.status(500).send('Error retrieving messages')
         })
+        
+        res.status(200).json({
+            message: 'Success to get all messages',
+            data: {
+                messages
+            }
+        })
+    } catch (error) {
+        console.error('Error retrieving messages:', error)
+        res.status(500).send('Error retrieving messages')
+    }
 }
+
 
 //U
 const updateMessage = (req, res) => {
@@ -68,7 +62,7 @@ const updateMessage = (req, res) => {
     const updatedMessage = req.body
     try {
         // get a database reference to the message with the given ID
-        const messageRef = firebase.database().ref(`/messages2/${messageId}`)
+        const messageRef = admin.database().ref(`/messages2/${messageId}`)
 
         // update message in the database
         messageRef.update(updatedMessage)
@@ -90,7 +84,7 @@ const deleteMessage = (req, res) => {
     const messageId = req.params.id
 
     // get a database reference to the message with the given ID
-    const messageRef = firebase.database().ref(`messages2/${messageId}`)
+    const messageRef = admin.database().ref(`messages2/${messageId}`)
     try {
         // deleting message
         messageRef.remove()
@@ -123,7 +117,7 @@ module.exports = {
 //   const { message } = req.body
 
 //   // write message to database
-//   firebase.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
+//   admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
 //     message,
 //     timestamp: new Date().getTime()
 //   })
@@ -138,7 +132,7 @@ module.exports = {
 
 // app.get('/message', (req, res) => {
 //   // read messages from database
-//   firebase.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
+//   admin.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
 //     .then((snapshot) => {
 //       const messages = []
 

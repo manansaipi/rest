@@ -17,6 +17,9 @@ router.patch('/:id', usersController.updateUser)
 router.delete('/:id', usersController.deleteUser)
 
 
+router.post('/register', usersController.register)
+router.get('/login', usersController.login)
+
 module.exports = router //if import not using -> '{}' in order to import this method no need to call the function name? will take everything inside the varibale
 
 //https://youtu.be/8GTB2ge0-ZM

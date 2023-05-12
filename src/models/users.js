@@ -1,6 +1,4 @@
-const dbPool = require('../config/database').default
-
-
+const dbPool = require('../config/database')
 
 const getAllUsers = () => {
     const SQLQuery = 'SELECT * FROM users'
@@ -13,7 +11,7 @@ const getUser = (id) => {
 }
 
 const createNewUser = (body) => {
-    const SQLQuery = `INSERT INTO users (name, username, email) VALUES ('${body.name}', '${body.username}', '${body.email}')`
+    const SQLQuery = `INSERT INTO users (full_name, email) VALUES ('${body.full_name}', '${body.email}')`
     return dbPool.execute(SQLQuery)
 }
 

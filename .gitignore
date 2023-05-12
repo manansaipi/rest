@@ -1,3 +1,4 @@
 node_modules/
 credentials/
 .env
+express_mysql.sql
