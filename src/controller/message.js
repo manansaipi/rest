@@ -1,4 +1,4 @@
-const admin = require('../config/firbase')
+const config = require('../config/firbase')
 
 //CRUD
 
@@ -7,7 +7,7 @@ const pushMessage = (req, res) => {
     const { message } = req.body
     try {
         // write message to database into "messages2" collection
-        const newMessageRef = admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
+        const newMessageRef = config.admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
             message,
             timestamp: new Date().getTime()
         })
@@ -29,7 +29,7 @@ const pushMessage = (req, res) => {
 const getMessage = async (req, res) => {
     try {
         // get a database refer to "message2" collection 
-        const snapshot = await admin.database().ref('messages2').once('value')
+        const snapshot = await config.admin.database().ref('messages2').once('value')
         const messages = []
         
         // looping every message inside snapshot var
@@ -62,7 +62,7 @@ const updateMessage = (req, res) => {
     const updatedMessage = req.body
     try {
         // get a database reference to the message with the given ID
-        const messageRef = admin.database().ref(`/messages2/${messageId}`)
+        const messageRef = config.admin.database().ref(`/messages2/${messageId}`)
 
         // update message in the database
         messageRef.update(updatedMessage)
@@ -84,7 +84,7 @@ const deleteMessage = (req, res) => {
     const messageId = req.params.id
 
     // get a database reference to the message with the given ID
-    const messageRef = admin.database().ref(`messages2/${messageId}`)
+    const messageRef = config.admin.database().ref(`messages2/${messageId}`)
     try {
         // deleting message
         messageRef.remove()
@@ -117,7 +117,7 @@ module.exports = {
 //   const { message } = req.body
 
 //   // write message to database
-//   admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
+//   config.admin.database().ref('messages2').push({ //messages2 same like root folder so every message here will push to messages2
 //     message,
 //     timestamp: new Date().getTime()
 //   })
@@ -132,7 +132,7 @@ module.exports = {
 
 // app.get('/message', (req, res) => {
 //   // read messages from database
-//   admin.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
+//   config.admin.database().ref('messages2').once('value') //messages2 same like root folder so every message here will get from messages2
 //     .then((snapshot) => {
 //       const messages = []
 

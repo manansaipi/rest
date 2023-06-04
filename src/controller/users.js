@@ -1,5 +1,5 @@
 const UsersModel = require('../models/users')
-const firebase = require('../config/firbase')
+const config = require('../config/firbase')
 
 const getAllUsers = async (req, res) => {
     try {
@@ -93,12 +93,13 @@ const deleteUser = async (req, res) => {
 }
 
 const register = async (req, res) => {
-    const { email } = req.email
-    const { password } = req.password
+    const { body } = req
+    const email = body.email
+    const password = body.password
 
     try {
         // Create user account in Firebase Authentication
-        const userRecord = await firebase.auth().createUser({
+        const userRecord = await config.admin.auth().createUser({ // register using firebase-admin core modules
             email,
             password,
         })
@@ -108,19 +109,28 @@ const register = async (req, res) => {
         })
     } catch (error) {
         console.error(error)
-        res.status(500).send('Failed to create user')
+        res.status(500).json({
+            message: 'Failed to create user',
+            serverMessage: error
+        })
     }
 }
 
 const login = async (req, res) => {
-    const { email } = req.email
-    const { password } = req.password
+    const { body } = req
+    const email = body.email
+    const password = body.password
 
+    if (typeof email !== 'string' || email.trim().length === 0) {
+        console.log(email)
+        throw new Error('Invalid email')
+    }
     try {
-        const userRecord = await firebase.auth().signInWithEmailAndPassword(email, password)
+        // firebase auth
+        const userRecord = await config.firebase.auth().signInWithEmailAndPassword(email, password) // register using firebase core modules
         res.json({
             message: 'success login',
-            user: userRecord.toJSON() 
+            userRecord
         })
     } catch (error) {
         console.error(error)
@@ -128,7 +138,7 @@ const login = async (req, res) => {
     }
 }
 module.exports = {
-    getAllUsers, 
+    getAllUsers,
     createUser,
     updateUser,
     deleteUser,

@@ -5,7 +5,7 @@ const { Storage } = require('@google-cloud/storage')
 //credentials-key
 const storage = new Storage({
     projectId: 'qwiklabs-gcp-00-d947baf6112d',
-    keyFilename: '../../credentials/cloud-storage.json', 
+    keyFilename: 'credentials/cloud-storage.json', 
 })
 
 const bucketName = 'bucket_express3'
@@ -44,7 +44,7 @@ const uploadPhoto = async (req, res) => {
 
             readStream.pipe(writeStream)
         })
-        // do delete file here in public/images directory 
+        // do delete photo in public/images directory
         fs.unlink(filePath, (err) => {
             if (err) {
                 console.error(`Failed to delete file: ${err}`)
