@@ -32,6 +32,8 @@
         "comma-dangle": "off", //->off
         "no-multiple-empty-lines": "off", //->on
         "eol-last": 0, //->0
-        "prefer-destructuring": "off" // ->off
+        "prefer-destructuring": "off", // ->off
+        "import/no-unresolved": "off"
+
     }
 }
